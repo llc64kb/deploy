@@ -1,0 +1,29 @@
+name: Перенос файловой структуры
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  remote-commands:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+        
+    - name: Execute remote commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          cd /home/bitrix/ext_www/dev.ee-gr.ru
+          git add .
+          git commit -m "dev $TIMESTAMP"
+          cd /home/bitrix/ext_www/ee-gr.ru
+          git fetch

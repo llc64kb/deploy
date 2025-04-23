@@ -27,4 +27,4 @@ jobs:
           git add .
           git commit -m "dev $TIMESTAMP"
           cd /home/bitrix/ext_www/ee-gr.ru
-          git fetch
+          git pull

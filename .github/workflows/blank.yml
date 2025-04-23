@@ -26,6 +26,7 @@ jobs:
           cd /home/bitrix/ext_www/dev.ee-gr.ru
           git add . --all
           git commit -m "dev $TIMESTAMP"
+          git push
         
     - name: Update Prod from VCS
       uses: appleboy/ssh-action@master

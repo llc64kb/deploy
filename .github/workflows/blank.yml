@@ -14,7 +14,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
         
-    - name: Execute remote commands
+    - name: Update changes in VCS
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -26,5 +26,14 @@ jobs:
           cd /home/bitrix/ext_www/dev.ee-gr.ru
           git add .
           git commit -m "dev $TIMESTAMP"
+        
+    - name: Update Prod from VCS
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: 22
+        script: |
           cd /home/bitrix/ext_www/ee-gr.ru
           git pull

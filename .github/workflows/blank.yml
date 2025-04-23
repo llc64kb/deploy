@@ -24,7 +24,7 @@ jobs:
         script: |
           TIMESTAMP=$(date +%Y%m%d_%H%M%S)
           cd /home/bitrix/ext_www/dev.ee-gr.ru
-          git add .
+          git add . --all
           git commit -m "dev $TIMESTAMP"
         
     - name: Update Prod from VCS
